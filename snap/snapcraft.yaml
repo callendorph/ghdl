@@ -1,0 +1,44 @@
+name: ghdl
+version: "3.0.0"
+summary: VHDL Simulator
+description: |
+  VHDL 2008/93/87 simulator leveraging GCC backend.
+
+base: core18
+confinement: strict
+grade: stable
+license: GPL-2.0
+icon: doc/_static/logo.png
+
+slots:
+  libghdl3-1804:
+      interface: content
+      content: libghdl3-1804
+      read:
+        - $SNAP/libghdl-3_0_0
+
+parts:
+  ghdl:
+    plugin: autotools
+    source-type: git
+    source: https://github.com/ghdl/ghdl.git
+    source-branch: v3.0.0
+    configflags:
+      - --enable-libghdl
+    build-packages:
+      - gcc
+      - autoconf
+      - automake
+      - libtool
+      - make
+      - gnat
+      - zlib1g-dev
+      - pkg-config
+    stage-packages:
+      - zlib1g
+      - libgnat-7
+apps:
+  ghdl:
+    command: ghdl
+    plugs:
+      - home
